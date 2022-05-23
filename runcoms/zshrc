@@ -12,3 +12,7 @@ fi
 
 # Customize to your needs...
 unsetopt CORRECT
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/zpearce/.sdkman"
+[[ -s "/Users/zpearce/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/zpearce/.sdkman/bin/sdkman-init.sh"
