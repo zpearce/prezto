@@ -23,7 +23,6 @@ autoload -Uz run-help-{ip,openssl,sudo}
 #
 
 # Disable correction.
-alias ack='nocorrect ack'
 alias cd='nocorrect cd'
 alias cp='nocorrect cp'
 alias ebuild='nocorrect ebuild'
