@@ -5,9 +5,18 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
-export PATH=/Users/zpearce/src/sh:$PATH
+export CONFLUENT_HOME=~/Downloads/confluent-7.7.1
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:/usr/local/opt/sqlite/bin:/Users/zpearce/src/sh:/Users/zpearce/.local/bin:$(/usr/local/bin/go env GOPATH)/bin:$CONFLUENT_HOME/bin:$PATH"
+export HELM_DIFF_COLOR=true
+export HOMEBREW_AUTO_UPDATE_SECS=86400
 
 # Ensure that a non-login, non-interactive shell has a defined environment.
 if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
+
+export KUBECONFIG=~/.kube/config
+
+
+alias assume="source assume"
+alias python="python3"

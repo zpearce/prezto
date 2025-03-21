@@ -13,6 +13,47 @@ fi
 # Customize to your needs...
 unsetopt CORRECT
 
+# confluent
+alias cf='confluent'
+
+# kubectl
+alias k='kubectl'
+
+# terraform
+alias tf='terraform'
+
+# direnv
+eval "$(direnv hook zsh)"
+
+alias dkc='docker compose'
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/zpearce/.sdkman"
 [[ -s "/Users/zpearce/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/zpearce/.sdkman/bin/sdkman-init.sh"
+
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv init --path)"
+
+# function iterm2_print_user_vars() {
+#   iterm2_set_user_var kubecontext $(kubectl config current-context):$(kubectl config view --minify --output 'jsonpath={..namespace}')
+# }
+
+test -e /Users/zpearce/.iterm2_shell_integration.zsh && source /Users/zpearce/.iterm2_shell_integration.zsh || true
+
+autoload -Uz compinit
+if [ "$(whoami)" = "zpearce" ]; then
+  compinit -i
+else
+  compinit
+fi
+
+[[ -s "/Users/zpearce/.gvm/scripts/gvm" ]] && source "/Users/zpearce/.gvm/scripts/gvm"
+
+bindkey '^R' history-incremental-pattern-search-backward
+
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+. "/usr/local/share/acme.sh/acme.sh.env"
