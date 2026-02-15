@@ -4,34 +4,6 @@
 # Authors:
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 
-function vpn() {
-  case $1 in
-    disconnect | stop )
-      echo disconnecting from vpn
-      sudo pkill openconnect vpn-slice
-      ;;
-    connect | "" | start )
-      echo connecting to vpn
-      code="push"
-      user=$(sudo head -n 1 /opt/ad)
-      pswd=$(sudo tail -n 1 /opt/ad)
-
-      input="${pswd}\n${code}"
-      openconnect-sso --server dev.corp.acima.com -u ${user} -l debug -- --script=/usr/local/etc/vpnc-script-split-traffic --background
-      ;;
-    status )
-      oc_pids=$(pgrep openconnect)
-      vs_pids=$(pgrep vpn-slice)
-
-      if [ ${oc_pids} ] || [ ${vs_pids} ]; then
-        echo "openconnect PID: ${oc_pids}, vpn-slice PID: ${vs_pids}"
-      else
-        echo vpn is not running
-      fi
-      ;;
-  esac
-}
-
 #
 # Browser
 #
@@ -68,12 +40,15 @@ typeset -gU cdpath fpath mailpath path
 #   $cdpath
 # )
 
+path=("$HOME/.local/bin" $path)
+export PATH
+
 # Set the list of directories that Zsh searches for programs.
 path=(
   $HOME/{,s}bin(N)
+  $HOME/.local/{,s}bin(N)
   /opt/{homebrew,local}/{,s}bin(N)
   /usr/local/{,s}bin(N)
-  /Users/zpearce/.dotnet/tools
   $path
 )
 
@@ -93,3 +68,6 @@ fi
 if [[ -z "$LESSOPEN" ]] && (( $#commands[(i)lesspipe(|.sh)] )); then
   export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
 fi
+
+# Machine-specific overrides
+[[ -s "$HOME/.zprofile.local" ]] && source "$HOME/.zprofile.local"
