@@ -13,16 +13,23 @@ fi
 # Customize to your needs...
 unsetopt CORRECT
 
-# kubectl
+# aliases
+alias python='python3'
+alias assume='source assume'
+alias lsi="ls -l $HOME/Documents/obsidian/Inbox"
 alias k='kubectl'
-
-# terraform
 alias tf='terraform'
+alias dkc='docker compose'
 
 # direnv
 eval "$(direnv hook zsh)"
 
-alias dkc='docker compose'
+# Claude Code runs commands in shells that source zshrc but never
+# enter a prompt loop, so precmd (where direnv hook fires) never
+# triggers. Force an immediate export so .envrc vars are available.
+if [[ -n "$CLAUDECODE" ]]; then
+  eval "$(DIRENV_LOG_FORMAT= direnv export zsh)"
+fi
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
