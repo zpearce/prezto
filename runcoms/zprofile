@@ -45,6 +45,7 @@ export PATH
 
 # Set the list of directories that Zsh searches for programs.
 path=(
+  $HOME/src/sh/dotfiles/bin
   $HOME/{,s}bin(N)
   $HOME/.local/{,s}bin(N)
   /opt/{homebrew,local}/{,s}bin(N)
